@@ -1,0 +1,6 @@
+@OpenRemoteManage.GatewayAPI_HostAddress = http://localhost:5131
+
+GET {{OpenRemoteManage.GatewayAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

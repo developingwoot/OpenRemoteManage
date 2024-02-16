@@ -1,0 +1,12 @@
+# Please refer https://aka.ms/HTTPSinContainer on how to setup an https developer certificate for your ASP.NET Core service.
+
+version: '3.4'
+
+services:
+  openremotemanagegatewayapi:
+    image: openremotemanagegatewayapi
+    build:
+      context: .
+      dockerfile: OpenRemoteManage.GatewayAPI/Dockerfile
+    ports:
+      - 5131:5131
