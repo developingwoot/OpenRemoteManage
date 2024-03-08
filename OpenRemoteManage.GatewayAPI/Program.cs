@@ -15,7 +15,7 @@ builder.Services.AddOpenTelemetry()
             .AddProcessInstrumentation()
             .AddOtlpExporter(opts =>
             {
-                opts.Endpoint = new Uri(builder.Configuration["Otlp:Endpoint"]);
+                opts.Endpoint = new Uri(builder.Configuration["Otel:Endpoint"]);
             })
     );   
 

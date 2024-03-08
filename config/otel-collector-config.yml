@@ -6,7 +6,7 @@ receivers:
 
 exporters:
   prometheus:
-    endpoint: "otel-collector:8889"
+    endpoint: otel-collector:8889
 
 processors:
   batch:
