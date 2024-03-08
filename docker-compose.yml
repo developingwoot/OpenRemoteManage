@@ -23,7 +23,7 @@ services:
     ports:
       - 5131:5131
     environment:
-      Otlp__Endpoint: http://otel-collector:4317
+      Otel__Endpoint: http://otel-collector:4317
     networks:
       - monitoring
   otel-collector:
