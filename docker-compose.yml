@@ -19,7 +19,7 @@ services:
       - otel-collector
     build:
       context: .
-      dockerfile: OpenRemoteManage.GatewayAPI/Dockerfile
+      dockerfile: src/OpenRemoteManage.GatewayAPI/Dockerfile
     ports:
       - 5131:5131
     environment:
