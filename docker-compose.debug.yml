@@ -7,7 +7,7 @@ services:
     image: openremotemanagegatewayapi
     build:
       context: .
-      dockerfile: OpenRemoteManage.GatewayAPI/Dockerfile
+      dockerfile: src/OpenRemoteManage.GatewayAPI/Dockerfile
       args:
         - configuration=Debug
     ports:
