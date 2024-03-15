@@ -1,0 +1,25 @@
+<Project>
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+        <ImportDirectoryBuildProps>false</ImportDirectoryBuildProps>
+        <AnalysisLevel>latest</AnalysisLevel>
+        <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <InvariantGlobalization>true</InvariantGlobalization>
+        
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Title>Open Remote Manage Project</Title>
+        <Authors>Woot</Authors>
+        <Copyright>Copyright © 2024</Copyright>
+        <Owners>Developing Woot</Owners>
+        <Description>This application is for training purposes</Description>
+        <Version>1.0.0</Version>
+    </PropertyGroup>
+
+</Project>
