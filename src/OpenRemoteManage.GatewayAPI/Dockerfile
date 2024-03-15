@@ -9,6 +9,8 @@ FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG configuration=Release
 WORKDIR /src
 COPY ["src/OpenRemoteManage.GatewayAPI/OpenRemoteManage.GatewayAPI.csproj", "OpenRemoteManage.GatewayAPI/"]
+COPY Directory.Build.props .
+COPY Directory.Packages.props .
 RUN dotnet restore "OpenRemoteManage.GatewayAPI/OpenRemoteManage.GatewayAPI.csproj"
 COPY ./src .
 WORKDIR "/src/OpenRemoteManage.GatewayAPI"
