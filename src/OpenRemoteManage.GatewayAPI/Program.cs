@@ -1,4 +1,4 @@
-using OpenTelemetry.Metrics;
+﻿using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,18 +6,25 @@ var builder = WebApplication.CreateBuilder(args);
 // add prometheus exporter
 builder.Services.AddOpenTelemetry()
     .WithMetrics(opt =>
-    
+    {
+
+        var meterName = builder.Configuration.GetValue<string>("OpenRemoteManageMeterName")
+                ?? throw new OpenRemoteManageLaunchException("Unable to locate Otel meter name.");
+
+        var otelEndpoint = builder.Configuration["Otel:Endpoint"]
+            ?? throw new OpenRemoteManageLaunchException("Otel endpoint was not configured.");
+
         opt
             .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("OpenRemoteManage.GatewayAPI"))
-            .AddMeter(builder.Configuration.GetValue<string>("OpenRemoteManageMeterName"))
+            .AddMeter(meterName)
             .AddAspNetCoreInstrumentation()
             .AddRuntimeInstrumentation()
             .AddProcessInstrumentation()
             .AddOtlpExporter(opts =>
             {
-                opts.Endpoint = new Uri(builder.Configuration["Otel:Endpoint"]);
-            })
-    );   
+                opts.Endpoint = new Uri(otelEndpoint);
+            });
+    });
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -42,7 +49,7 @@ var summaries = new[]
 
 app.MapGet("/weatherforecast", () =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
+    var forecast = Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
         (
             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
@@ -55,11 +62,9 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
-
-
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }
