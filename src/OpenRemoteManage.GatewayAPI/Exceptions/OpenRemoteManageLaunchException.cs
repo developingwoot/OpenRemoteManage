@@ -1,19 +1,18 @@
 
 /// <summary>
-/// Exception file for errors during the application launch
+/// Launch Exception for application
 /// </summary>
 public class OpenRemoteManageLaunchException : Exception
 {
     /// <summary>
-    /// Exception file for errors during the application launch
+    /// Launch Exception with no parameters
     /// </summary>
     public OpenRemoteManageLaunchException()
     {
     }
 
     /// <summary>
-    /// Exception file for errors during the application launch
-    /// With error message
+    /// Launch Exception including message that is passed to base exception
     /// </summary>
     /// <param name="message"></param>
     public OpenRemoteManageLaunchException(string? message) : base(message)
@@ -21,8 +20,7 @@ public class OpenRemoteManageLaunchException : Exception
     }
 
     /// <summary>
-    /// Exception file for errors during the application launch
-    /// Includes string based error message and inner exception
+    /// Launch Exception including message and inner exception that are passed to base exception
     /// </summary>
     /// <param name="message"></param>
     /// <param name="innerException"></param>
