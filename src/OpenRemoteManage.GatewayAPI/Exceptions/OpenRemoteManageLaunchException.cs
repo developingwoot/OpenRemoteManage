@@ -1,4 +1,4 @@
-﻿
+
 /// <summary>
 /// Launch Exception for application
 /// </summary>
