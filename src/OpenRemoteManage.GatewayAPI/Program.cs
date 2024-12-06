@@ -1,4 +1,4 @@
-using OpenTelemetry.Metrics;
+﻿using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,11 +7,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenTelemetry()
     .WithMetrics(opt =>
     {
-        var meterName = builder.Configuration.GetValue<string>("OpenRemoteManageMeterName") ??
-            throw new OpenRemoteManageLaunchException("Unable to locate an Otel meter name.");
 
-        var endpoint = builder.Configuration["Otel:Endpoint"] ??
-            throw new OpenRemoteManageLaunchException("Unable to locate an Otel endpoint.");
+        var meterName = builder.Configuration.GetValue<string>("OpenRemoteManageMeterName")
+                ?? throw new OpenRemoteManageLaunchException("Unable to locate Otel meter name.");
+
+        var otelEndpoint = builder.Configuration["Otel:Endpoint"]
+            ?? throw new OpenRemoteManageLaunchException("Otel endpoint was not configured.");
 
         opt
             .SetResourceBuilder(ResourceBuilder.CreateDefault().AddService("OpenRemoteManage.GatewayAPI"))
@@ -21,7 +22,7 @@ builder.Services.AddOpenTelemetry()
             .AddProcessInstrumentation()
             .AddOtlpExporter(opts =>
             {
-                opts.Endpoint = new Uri(endpoint);
+                opts.Endpoint = new Uri(otelEndpoint);
             });
     });
 
@@ -61,11 +62,9 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
-
-
 app.Run();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
+internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
     public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }
